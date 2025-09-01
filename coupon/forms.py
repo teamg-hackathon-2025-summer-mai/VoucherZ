@@ -49,6 +49,9 @@ class CouponForm(forms.ModelForm):
             "max_issuance": forms.TextInput(attrs={
                 "id": "maxIssuance",
                 "class": "input",
+                "autocomplete": "off",
+                "autocapitalize": "off",
+                "enterkeyhint": "done",
             }),
             "expiration_date": forms.TextInput(attrs={
                 "id": "expirationDate",
