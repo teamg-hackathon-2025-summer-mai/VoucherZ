@@ -29,11 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  os.getenv("DJANGO_SECRET_KEY", "dummyValue")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dummyValue")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_ENV", "dummyValue") == "development"
-#DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
@@ -113,12 +113,12 @@ DATABASES = {
                     },
         }
 }
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 
 # Password validation
@@ -171,16 +171,15 @@ INTERNAL_IPS = [
 ]
 
 # 開発環境の場合
-if DEBUG and  os.getenv("DJANGO_ENV", "dummyValue") == "development":
+if DEBUG and os.getenv("DJANGO_ENV", "dummyValue") == "development":
     INSTALLED_APPS += ["debug_toolbar"]
     MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-
-
 
 CSRF_TRUSTED_ORIGINS = [
     "https://voucherz.jp",
     "https://www.voucherz.jp",
 ]
+
 FLOW_GUARDS = [
     {
         "session_key": "coupon_data",
