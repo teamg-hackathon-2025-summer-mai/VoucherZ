@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import environ
 import os
 import pymysql
 
@@ -20,10 +19,6 @@ pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# 環境変数を読み込む
-# env = environ.Env()
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -35,7 +30,11 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dummyValue")
 DEBUG = os.getenv("DJANGO_ENV", "dummyValue") == "development"
 # DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
+hosts = os.getenv("DJANGO_ALLOWED_HOSTS")
+if hosts:
+    ALLOWED_HOSTS = [h.strip() for h in hosts.split(",") if h.strip()]
+else:
+    ALLOWED_HOSTS = ["*"] if DEBUG else []
 
 
 if DEBUG:
@@ -66,7 +65,7 @@ LOGIN_REDIRECT_URL = 'coupon:coupon_list'
 # ログアウト後のリダイレクト先URL名
 LOGOUT_REDIRECT_URL = 'account:login'
 
-MIDDLEWARE = [ 
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -106,20 +105,13 @@ DATABASES = {
                     'NAME': os.getenv("MYSQL_DATABASE", "dummyValue"),
                     'USER': os.getenv("MYSQL_USER", "dummyValue"),
                     'PASSWORD': os.getenv("MYSQL_PASSWORD", "dummyValue"),
-                    'HOST': os.getenv("MYSQL_CONTAINER_NAME", "dummyValue"),
+                    'HOST': 'db',
                     'PORT': '3306',
                     'OPTIONS': {
                         'charset': 'utf8mb4',
                     },
         }
 }
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -159,7 +151,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -179,6 +171,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://voucherz.jp",
     "https://www.voucherz.jp",
 ]
+
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS += [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ]
 
 FLOW_GUARDS = [
     {
