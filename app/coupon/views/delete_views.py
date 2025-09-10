@@ -27,7 +27,6 @@ class CouponDeleteView(LoginRequiredMixin, DeleteView):
         coupon_for_deleted_at = Coupon.get_for_delete_check(coupon_id)
         if coupon_for_deleted_at is None:
             return redirect(reverse("coupon:coupon_list"))
-
         deleted_at = coupon_for_deleted_at.deleted_at
         if deleted_at is not None:
             return redirect(reverse("coupon:coupon_list"))
@@ -36,11 +35,9 @@ class CouponDeleteView(LoginRequiredMixin, DeleteView):
         coupon_for_expiration_date = Coupon.get_for_expiration_check(coupon_id)
         if coupon_for_expiration_date is None:
             return redirect(reverse("coupon:coupon_list"))
-
         coupon_for_issuance_check = Coupon.get_for_issuance_check(coupon_id)
         if coupon_for_issuance_check is None:
             return redirect(reverse("coupon:coupon_list"))
-
         expiration_date = coupon_for_expiration_date.expiration_date
         today = timezone.localdate()
         issued_count = coupon_for_issuance_check.issued_count

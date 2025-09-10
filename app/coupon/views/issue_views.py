@@ -37,7 +37,6 @@ class CouponIssueView(LoginRequiredMixin, View):
             coupon_for_deleted_at = Coupon.get_for_delete_check(coupon_id)
             if coupon_for_deleted_at is None:
                 return redirect(reverse("coupon:coupon_list"))
-
             deleted_at = coupon_for_deleted_at.deleted_at
             if deleted_at is not None:
                 return redirect(reverse("coupon:coupon_list"))
@@ -46,7 +45,6 @@ class CouponIssueView(LoginRequiredMixin, View):
             coupon_for_expiration_date = Coupon.get_for_expiration_check(coupon_id)
             if coupon_for_expiration_date is None:
                 return redirect(reverse("coupon:coupon_list"))
-
             expiration_date = coupon_for_expiration_date.expiration_date
             today = timezone.localdate()
             if expiration_date is not None and expiration_date < today:
@@ -56,7 +54,6 @@ class CouponIssueView(LoginRequiredMixin, View):
             coupon_for_issuance_check = Coupon.get_for_issuance_check(coupon_id)
             if coupon_for_issuance_check is None:
                 return redirect(reverse("coupon:coupon_list"))
-
             max_issuance = coupon_for_issuance_check.max_issuance
             issued_count = coupon_for_issuance_check.issued_count
             if max_issuance is not None and max_issuance <= issued_count:
