@@ -72,7 +72,7 @@ class CouponCreateConfirmView(LoginRequiredMixin, TemplateView):
         """
         クーポン作成確認画面の表示処理。
 
-        以下の条件に該当する場合は、クーポン一覧ページへリダイレクトする：
+        以下の条件に該当する場合は、ホーム画面へリダイレクトする：
         - セッションにクーポン作成データが存在しない
         - 店舗IDが存在しない
         - 店舗名が取得できない
@@ -85,7 +85,7 @@ class CouponCreateConfirmView(LoginRequiredMixin, TemplateView):
             request (HttpRequest): GETリクエストオブジェクト。
 
         Returns:
-            正常時は確認画面、条件不一致時は一覧画面へのリダイレクト。
+            正常時は確認画面、条件不一致時はホーム画面へのリダイレクト。
         """
         session_data = request.session.get(self.session_key)
         if session_data is None:
@@ -111,6 +111,7 @@ class CouponCreateConfirmView(LoginRequiredMixin, TemplateView):
                 ).date()
             except ValueError:
                 return redirect(reverse("coupon:coupon_list"))
+
         # 有効期限切れの場合は一覧へリダイレクト
         today = timezone.localdate()
         if expiration_date_object is not None and expiration_date_object < today:
@@ -118,6 +119,7 @@ class CouponCreateConfirmView(LoginRequiredMixin, TemplateView):
 
         self.coupon = coupon_data
         self.store_name = store_name
+
         # テンプレート表示用に「YYYY/MM/DD」形式の文字列を追加
         self.expiration_date_display = expiration_date_object
         return super().get(request, *args, **kwargs)
@@ -171,6 +173,7 @@ class CouponCreateConfirmView(LoginRequiredMixin, TemplateView):
                 ).date()
             except ValueError:
                 return redirect(reverse("coupon:coupon_list"))
+
         # 有効期限切れの場合は一覧へリダイレクト
         today = timezone.localdate()
         if expiration_date_object is not None and expiration_date_object < today:

@@ -42,11 +42,11 @@
     "model": "coupon.coupon",
     "pk": 2,
     "fields": {
-      "title": "夏休みキャンペーン",
+      "title": "冬休みキャンペーン",
       "discount": "一杯無料",
       "target_product": "コーヒー",
-      "message": "この度はご来店ありがとうございます。\n当店から夏の限定クーポンをお渡しいたします。",
-      "expiration_date": "2025-09-01",
+      "message": "この度はご来店ありがとうございます。\n当店から冬の限定クーポンをお渡しいたします。",
+      "expiration_date": "2026-02-01",
       "max_issuance": 20,
       "redeemed_count": 0,
       "issued_count": 1,
@@ -82,7 +82,7 @@
       "discount": "10％OFF",
       "target_product": "全品",
       "message": null,
-      "expiration_date": "2025-09-01",
+      "expiration_date": "2026-04-01",
       "max_issuance": 15,
       "redeemed_count": 0,
       "issued_count": 0,
@@ -100,7 +100,7 @@
       "discount": "10％OFF",
       "target_product": "全品",
       "message": null,
-      "expiration_date": "2025-09-01",
+      "expiration_date": "2026-04-01",
       "max_issuance": 15,
       "redeemed_count": 0,
       "issued_count": 15,
@@ -118,7 +118,7 @@
       "discount": "10％OFF",
       "target_product": "全品",
       "message": null,
-      "expiration_date": "2025-09-02",
+      "expiration_date": "2026-04-02",
       "max_issuance": 15,
       "redeemed_count": 0,
       "issued_count": 0,
@@ -136,7 +136,7 @@
       "discount": "10％OFF",
       "target_product": "全品",
       "message": null,
-      "expiration_date": "2025-09-03",
+      "expiration_date": "2026-04-03",
       "max_issuance": null,
       "redeemed_count": 0,
       "issued_count": 0,
@@ -234,13 +234,13 @@
   },
   {
     "model": "coupon.coupon",
-    "pk": 6,
+    "pk": 8,
     "fields": {
       "title": "新規オープン記念",
       "discount": "50％OFF",
       "target_product": "ドリンク全品",
       "message": "カフェ・ド・ルナのオープンを記念して、特別割引をご提供！",
-      "expiration_date": "2025-12-31",
+      "expiration_date": "2026-04-01",
       "max_issuance": 30,
       "redeemed_count": 0,
       "issued_count": 0,
@@ -260,7 +260,7 @@
       "redeemed_at": null,
       "created_at": "2025-08-20T00:00:00Z",
       "updated_at": "2025-08-20T00:00:00Z",
-      "coupon": 6
+      "coupon": 8
     }
   },
   {
@@ -273,7 +273,7 @@
       "redeemed_at": "2025-08-22T15:00:00Z",
       "created_at": "2025-08-20T00:00:00Z",
       "updated_at": "2025-08-22T15:00:00Z",
-      "coupon": 6
+      "coupon": 8
     }
   }
 ]
