@@ -168,8 +168,8 @@ if DEBUG and os.getenv("DJANGO_ENV", "dummyValue") == "development":
     MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://voucherz.jp",
-    "https://www.voucherz.jp",
+    "https://voucherz.site",
+    "https://www.voucherz.site",
 ]
 
 if DEBUG:
