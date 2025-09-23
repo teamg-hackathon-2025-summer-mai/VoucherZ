@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import pymysql
+from django.core.exceptions import ImproperlyConfigured
 
 pymysql.install_as_MySQLdb()
 
@@ -97,16 +98,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
+def env_required(key: str) -> str:
+    """必須ENVを取得。未設定なら起動時に明示エラー。"""
+    val = os.getenv(key)
+    if val is None or val == "":
+        raise ImproperlyConfigured(f"Missing environment variable: {key}")
+    return val
+
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 DATABASES = {
         'default': {
                     'ENGINE': 'django.db.backends.mysql',
-                    'NAME': os.getenv("MYSQL_DATABASE", "dummyValue"),
-                    'USER': os.getenv("MYSQL_USER", "dummyValue"),
-                    'PASSWORD': os.getenv("MYSQL_PASSWORD", "dummyValue"),
-                    'HOST': 'db',
-                    'PORT': '3306',
+                    'NAME': env_required("DB_NAME"),
+                    'USER': env_required("DB_USER"),
+                    'PASSWORD': env_required("DB_PASSWORD"),
+                    'HOST': env_required("DB_HOST"),
+                    'PORT': env_required("DB_PORT"),
                     'OPTIONS': {
                         'charset': 'utf8mb4',
                     },
